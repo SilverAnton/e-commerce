@@ -26,8 +26,10 @@ def test_category():
 
 
 def test_get_object_category():
+  """Тест проверяет правильность полученного типа объекта из функции get_object_category"""
     assert type(products) is dict
 
 
 def test_get_object_product():
+  """Тест проверяет правильность полученного типа объекта из функции get_object_product"""
     assert type(objects) is dict
