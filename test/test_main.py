@@ -1,35 +1,46 @@
-import src.main
-
-# фикстуры для удобства тестирования кода классов и функций
-products = src.main.get_object_category('products.json')
-objects = src.main.get_object_product()
-phone_description = ('Смартфоны, как средство не только коммуникации, но и получение дополнительных функций для '
-                     'удобства жизни')
-tv_description = 'Современный телевизор, который позволяет наслаждаться просмотром, станет вашим другом и помощником'
-phone_names = ['Samsung Galaxy C23 Ultra', 'Iphone 15', 'Xiaomi Redmi Note 11']
-tv_name = ['55" QLED 4K']
+from src.utils import get_object_product, get_object_category
+from src.product import Product
+from src.category import Category
+import pytest
 
 
-def test_product():
-    """Тест проверяет корректность полученных типов объектов класса Product"""
-    assert src.main.Product(objects['name']).name in phone_names or tv_name
-    assert src.main.Product(objects['description']).description == str
-    assert src.main.Product(objects['price']).price == float
-    assert src.main.Product(objects['quantity']).quantity == int
+@pytest.fixture
+def objects_category():
+    category = get_object_category('products.json')
+    return Category(category['name'], category['description'], category['products'])
 
 
-def test_category():
-    """Тест проверяет корректность полученных типов объектов класса Category"""
-    assert src.main.Category(products['name']).name == 'Смартфоны' or 'Телевизоры'
-    assert src.main.Category(products['description']).description == phone_description or tv_description
-    assert src.main.Category(products['products']).products == list
+@pytest.fixture
+def objects_product():
+    product = get_object_product()
+    return Product(product['name'], product['description'], product['price'], product['quantity'])
+
+
+def test_init_category(objects_category):
+    """Тест проверяет корректность инициализации объектов класса Category"""
+    assert objects_category.name == 'Смартфоны'
+    assert objects_category.description == ('Смартфоны, как средство не только коммуникации, но и получение '
+                                            'дополнительных функций для удобства жизни')
+    assert type(objects_category.products) is list  # в данном случае проверяем корректность инициализации типа объекта
+    assert objects_category.category_count == 1
+    assert objects_category.unique_products_count == 3
+
+
+def test_init_product(objects_product):
+    """Тест проверяет корректность инициализации объектов класса Product"""
+    assert objects_product.name == 'Samsung Galaxy C23 Ultra'
+    assert objects_product.description == '256GB, Серый цвет, 200MP камера'
+    assert objects_product.price == 180000.0
+    assert objects_product.quantity_in_stock == 5
 
 
 def test_get_object_category():
-    """Тест проверяет правильность полученного типа объекта из функции get_object_category"""
-    assert type(products) is dict
+    """Тест проверяет правильность возвращенного типа объекта из функции get_object_category"""
+    category = get_object_category('products.json')
+    assert type(category) is dict
 
 
 def test_get_object_product():
-    """Тест проверяет правильность полученного типа объекта из функции get_object_product"""
-    assert type(objects) is dict
+    """Тест проверяет правильность возвращенного типа объекта из функции get_object_product"""
+    product = get_object_product()
+    assert type(product) is dict
