@@ -3,7 +3,7 @@ class Product:
     name: str
     description: str
     price: float
-    quantity: int
+    quantity_in_stock: int
 
     def __init__(self, name, description, price, quantity_in_stock):
         """Инициализатор названия объекта, описания объекта, цены и количества товаров, в наличии"""
