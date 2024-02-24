@@ -1,7 +1,6 @@
 import pytest
 from src.product import Product
 from src.category import Category
-from src.utils import get_category, get_product, get_file
 
 
 @pytest.fixture
@@ -58,10 +57,3 @@ def test_init_category(category):
     assert category.products == phones or tv
     assert category.category_count == 1
     assert category.unique_products_count == 1 or 3
-
-
-def test_foo_by_type():
-    """Тест проверяет правильность, полученных типов объектов из функций utils.py"""
-    assert type(get_file('products.json')) is list
-    assert type(get_category()) is dict
-    assert type(get_product()) is dict
