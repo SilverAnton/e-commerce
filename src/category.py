@@ -1,6 +1,3 @@
-from src.product import Product
-
-
 class Category:
     """Класс Category, представляет категории товаров"""
     category_count = 0
@@ -20,17 +17,14 @@ class Category:
         Category.category_count += 1
         Category.unique_products_count += len(self.__products)
 
-
     @classmethod
     def add_product(cls, products):
         """Метод добавляет объект товара в атрибут списка product класса Category"""
         cls.products.append(products)
 
-
     def get_products(self):
         """Возвращает приватный объект класса - список товаров"""
         return self.__products
-
 
     @property
     def product(self):
