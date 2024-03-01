@@ -14,5 +14,21 @@ def main_foo(paste_class):
         return object_category
 
 
-print(main_foo(Category).products)
-print(main_foo(Product).description)
+# проверка получения объектов классов и работа с ними(раскомментируйте печать нужного метода)
+
+obj1 = main_foo(Category)
+obj2 = main_foo(Product)
+products = get_product()
+# print(obj1.get_products())
+# print(obj2.new_objects(products).name)
+# print(obj2.new_objects(products).description)
+# print(obj2.new_objects(products).price)
+# print(obj2.new_objects(products).quantity_in_stock)
+
+# obj2.price = 10
+# print(obj2.price)
+
+new_object = obj2.new_objects(products)
+obj1.add_product(new_object)
+
+# print(obj1.product)
