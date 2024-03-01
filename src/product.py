@@ -12,7 +12,6 @@ class Product:
         self._price = price
         self.quantity_in_stock = quantity_in_stock
 
-
     @classmethod
     def new_objects(cls, products):
         """Метод принимает список товаров и возвращет новые объекты класса Product"""
@@ -25,13 +24,10 @@ class Product:
         quantity_in_stock = objects[3]
         return cls(name, description, price, quantity_in_stock)
 
-
-
     @property
     def price(self):
         """Геттер цены товара"""
         return self._price
-
 
     @price.setter
     def price(self, new_price):
@@ -49,8 +45,3 @@ class Product:
                 print("Введено некорректное значение")
         else:
             self._price = new_price
-
-
-
-
-
