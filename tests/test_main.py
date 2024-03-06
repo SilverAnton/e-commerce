@@ -16,6 +16,12 @@ def category(product):
                                 'дополнительных функций для удобства жизни',
                     products=[product, ])
 
+@pytest.fixture
+def product_2():
+    return Product(name='Iphone 15',
+                   description='512GB, Gray space',
+                   price=210000.0,
+                   quantity_in_stock=8)
 
 @pytest.fixture
 def price():
@@ -76,7 +82,7 @@ def test_add_product(category):
 
 def test_get_products(category):
     """Тест проверяет возврат приватного объекта класса Category - списка товаров(__products)"""
-    assert category.get_products() == phones or tv
+    assert category.get_products == phones or tv
 
 
 def test_product(category):
@@ -93,13 +99,28 @@ def test_new_object(product):
     assert product.new_objects(phones[0]).quantity_in_stock == 5
 
 
-# мой дурацкий тест для метода .price класса Product, не получается нормально протестировать, из-за условия в методе
+# никакой тест для метода .price класса Product, не получается нормально протестировать, из-за условия в методе
 # класса Product(задание со звездочкой).не соображу никак(
 def test_price(product, price):
     assert product.price == 180000.0
-    if price <= 0:
-        assert product.price == 180000.0
-    elif price == product.price:
-        assert product.price == 180000.0
-    # else:
-    # assert product.price == price
+
+
+
+def test_str_category(category):
+    """Тест проверяет правильность печати магического метода __str__, объектов класса Category"""
+    assert print(category) == print('Смартфоны, количество продуктов: 1 шт.')
+
+
+def test_len_category(category):
+    """Тест проверяет правильность сложения количества товаров категории"""
+    assert len(category) == 1
+
+
+def test_str_product(product):
+    """Тест проверяет правильность печати магического метода __str__, объектов класса Product"""
+    assert print(product) == print('Samsung Galaxy C23 Ultra, 180000.0 руб. Остаток: 5 шт.')
+
+
+def test_add_product(product, product_2):
+    """Тест проверяет правильность сложения магического метода __add__ объектов класса Product"""
+    assert product + product_2 == 2580000.0

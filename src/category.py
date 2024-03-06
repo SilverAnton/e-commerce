@@ -22,9 +22,19 @@ class Category:
         """Метод добавляет объект товара в атрибут списка product класса Category"""
         cls.products.append(products)
 
+    @property
     def get_products(self):
         """Возвращает приватный объект класса - список товаров"""
         return self.__products
+
+
+    def __len__(self):
+        return len(self.__products)
+
+
+    def __str__(self):
+        """Возвращает строку в формате: категория, количество продуктов: шт."""
+        return f"{self.name}, количество продуктов: {len(self.__products)} шт."
 
     @property
     def product(self):
