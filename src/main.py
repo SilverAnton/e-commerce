@@ -28,7 +28,10 @@ products = get_product()
 # obj2.price = 10
 # print(obj2.price)
 
-new_object = obj2.new_objects(products)
-obj1.add_product(new_object)
 
-# print(obj1.product)
+#print(obj2)
+#obj1.add_product(obj2)
+
+#print(len(obj1))
+obj2_2 = main_foo(Product)
+#print(obj2 + obj2_2)
