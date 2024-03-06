@@ -12,6 +12,15 @@ class Product:
         self._price = price
         self.quantity_in_stock = quantity_in_stock
 
+
+    def __str__(self):
+        """Возвращет строку в формате: товар, цена руб., остаток шт."""
+        return f"{self.name}, {self._price} руб. Остаток {self.quantity_in_stock} шт. "
+
+
+    def __add__(self, other):
+        return self.price * self.quantity_in_stock + other.price * other.quantity_in_stock
+
     @classmethod
     def new_objects(cls, products):
         """Метод принимает список товаров и возвращет новые объекты класса Product"""
