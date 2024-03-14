@@ -1,6 +1,8 @@
 from src.category import Category
 from src.product import Product
 from src.utils import get_category, get_product
+from src.smartphone import Smartphone
+from src.lawn_grass import Lawn_grass
 
 
 def main_foo(paste_class):
@@ -30,8 +32,25 @@ products = get_product()
 
 
 #print(obj2)
-#obj1.add_product(obj2)
+
 
 #print(len(obj1))
+
+
+class New:
+    """новый класс для проверки функций, уже существующих классов"""
+    pass
+
+obj4 = New()
 obj2_2 = main_foo(Product)
-#print(obj2 + obj2_2)
+obj3 = Smartphone('телефон', 'отличный телефон', 10000.90, 10, 9800.00, 'superphone', 2024.789, 'base')
+obj5 = Lawn_grass('мятлик', 'мягкая газонная трава', 4000.0, 50, 'England', '2а дня на прорастание', 'зеленый изумруд')
+#print(obj3.color)
+#print(obj5.made_in)
+#print(obj2 + obj3)
+
+#obj1.add_product(obj2)
+#obj1.add_product(obj2)
+#print(len(obj1.products))
+
+
