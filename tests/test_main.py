@@ -1,6 +1,8 @@
 import pytest
 from src.product import Product
 from src.category import Category
+from src.smartphone import Smartphone
+from src.lawn_grass import Lawn_grass
 
 
 @pytest.fixture
@@ -27,6 +29,15 @@ def product_2():
 def price():
     return 10
 
+
+@pytest.fixture
+def smartphone():
+    return Smartphone('телефон', 'отличный телефон', 10000.90, 10, 9800.00, 'superphone', 2024.789, 'base')
+
+
+@pytest.fixture
+def lawn_grass():
+    return Lawn_grass('мятлик', 'мягкая газонная трава', 4000.0, 50, 'England', '2а дня на прорастание', 'зеленый изумруд')
 
 # Фикстуры
 phones = [
@@ -57,7 +68,7 @@ tv_list = '55" QLED 4K, 123000.0 руб. Остаток: 7 шт.'
 
 
 def test_init_product(product):
-    """Тест проверяет правильную инициализацию элементов объекта класса Product"""
+    """Тест проверяет правильную инициализацию объектов экземпляра класса Product"""
     assert product.name == 'Samsung Galaxy C23 Ultra'
     assert product.description == '256GB, Серый цвет, 200MP камера'
     assert product.price == 180000.0
@@ -65,7 +76,7 @@ def test_init_product(product):
 
 
 def test_init_category(category):
-    """Тест проверяет правильную инициализацию элементов объекта класса Category"""
+    """Тест проверяет правильную инициализацию объектов экземпляра класса Category"""
     assert category.name == 'Смартфоны'
     assert category.description == ('Смартфоны, как средство не только коммуникации, но и получение дополнительных '
                                     'функций для удобства жизни')
@@ -74,10 +85,12 @@ def test_init_category(category):
     assert category.unique_products_count == 1 or 3
 
 
-def test_add_product(category):
-    """Тест проверяет добавление объекта товара в атрибут списка product класса Category"""
-    category.add_product(product)
-    assert category.products == [product]
+def test_add_product_to_category(category, product):
+    """Тест проверяет добавление экземпляра класса товара в атрибут списка product класса Category"""
+    if category.add_product(product):
+        assert category.products == [product]
+
+
 
 
 def test_get_products(category):
@@ -122,5 +135,30 @@ def test_str_product(product):
 
 
 def test_add_product(product, product_2):
-    """Тест проверяет правильность сложения магического метода __add__ объектов класса Product"""
+    """Тест проверяет правильность сложения магического метода __add__, только объектов экземпляра класса Product и его наследников"""
     assert product + product_2 == 2580000.0
+    with pytest.raises(TypeError):
+        product + 10
+
+
+def test_smartphone_init(smartphone):
+    """Тест проверяет правильную инициализацию объектов экземпляра класса Smartphone"""
+    assert smartphone.name == 'телефон'
+    assert smartphone.description == 'отличный телефон'
+    assert smartphone.price == 10000.90
+    assert smartphone.quantity_in_stock == 10
+    assert smartphone.perfomance == 9800.00
+    assert smartphone.model == 'superphone'
+    assert smartphone.memory == 2024.789
+    assert smartphone.color == 'base'
+
+
+def test_lawn_grass_init(lawn_grass):
+    """Тест проверяет правильную инициализацию объектов экземпляра класса Lawn_grass"""
+    assert lawn_grass.name == 'мятлик'
+    assert lawn_grass.description == 'мягкая газонная трава'
+    assert lawn_grass.price == 4000.0
+    assert lawn_grass.quantity_in_stock == 50
+    assert lawn_grass.made_in == 'England'
+    assert lawn_grass.germ_period == '2а дня на прорастание'
+    assert lawn_grass.color == 'зеленый изумруд'
