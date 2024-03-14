@@ -1,3 +1,7 @@
+from src.product import Product
+
+
+
 class Category:
     """Класс Category, представляет категории товаров"""
     category_count = 0
@@ -19,8 +23,11 @@ class Category:
 
     @classmethod
     def add_product(cls, products):
-        """Метод добавляет объект товара в атрибут списка product класса Category"""
-        cls.products.append(products)
+        """Метод добавляет экземпляр товара класса Product в атрибут списка product класса Category"""
+        if issubclass(products.__class__, Product):
+            cls.products.append(products)
+
+
 
     @property
     def get_products(self):
