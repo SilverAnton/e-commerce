@@ -1,9 +1,11 @@
+
 class Product:
     """Класс содержит название, описание, цену и количество товара, в наличии"""
     name: str
     description: str
     price: float
     quantity_in_stock: int
+
 
     def __init__(self, name, description, price, quantity_in_stock):
         """Инициализатор названия объекта, описания объекта, цены и количества товаров, в наличии"""
@@ -17,9 +19,12 @@ class Product:
         """Возвращет строку в формате: товар, цена руб., остаток шт."""
         return f"{self.name}, {self._price} руб. Остаток {self.quantity_in_stock} шт. "
 
-
     def __add__(self, other):
-        return self.price * self.quantity_in_stock + other.price * other.quantity_in_stock
+        """Метод позволяет складывать объекты класса Product и дочерних классов"""
+        if isinstance(other, type(self)):
+            return self.price * self.quantity_in_stock + other.price * other.quantity_in_stock
+        raise TypeError
+
 
     @classmethod
     def new_objects(cls, products):
