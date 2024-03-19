@@ -1,11 +1,13 @@
+from src.any_product import Any_product
+from src.mixin import MixinCreateObject
 
-class Product:
+
+class Product(MixinCreateObject, Any_product):
     """Класс содержит название, описание, цену и количество товара, в наличии"""
     name: str
     description: str
     price: float
     quantity_in_stock: int
-
 
     def __init__(self, name, description, price, quantity_in_stock):
         """Инициализатор названия объекта, описания объекта, цены и количества товаров, в наличии"""
@@ -13,7 +15,7 @@ class Product:
         self.description = description
         self._price = price
         self.quantity_in_stock = quantity_in_stock
-
+        super().__init__()
 
     def __str__(self):
         """Возвращет строку в формате: товар, цена руб., остаток шт."""
@@ -24,7 +26,6 @@ class Product:
         if isinstance(other, type(self)):
             return self.price * self.quantity_in_stock + other.price * other.quantity_in_stock
         raise TypeError
-
 
     @classmethod
     def new_objects(cls, products):
@@ -50,7 +51,7 @@ class Product:
             print('Введена некорректная цена!')
             new_price = self._price
         elif new_price < self._price:
-            user_input = str(input('Если вы хотите поменять цену введите: "y", иначе "n"')).lower()
+            user_input == str(input('Если вы хотите поменять цену введите: "y", иначе "n"')).lower()
             if user_input == 'y':
                 self._price = new_price
             elif user_input == 'n':
