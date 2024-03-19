@@ -1,7 +1,6 @@
 from src.product import Product
 
 
-
 class Category:
     """Класс Category, представляет категории товаров"""
     category_count = 0
@@ -27,17 +26,13 @@ class Category:
         if issubclass(products.__class__, Product):
             cls.products.append(products)
 
-
-
     @property
     def get_products(self):
         """Возвращает приватный объект класса - список товаров"""
         return self.__products
 
-
     def __len__(self):
         return len(self.__products)
-
 
     def __str__(self):
         """Возвращает строку в формате: категория, количество продуктов: шт."""
