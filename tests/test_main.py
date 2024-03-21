@@ -2,7 +2,7 @@ import pytest
 from src.product import Product
 from src.category import Category
 from src.smartphone import Smartphone
-from src.lawn_grass import Lawn_grass
+from src.lawn_grass import LawnGrass
 
 
 @pytest.fixture
@@ -18,12 +18,14 @@ def category(product):
                                 'дополнительных функций для удобства жизни',
                     products=[product, ])
 
+
 @pytest.fixture
 def product_2():
     return Product(name='Iphone 15',
                    description='512GB, Gray space',
                    price=210000.0,
                    quantity_in_stock=8)
+
 
 @pytest.fixture
 def price():
@@ -36,8 +38,15 @@ def smartphone():
 
 
 @pytest.fixture
+def smartphone2():
+    return Smartphone('телефон', 'отличный телефон', 10000.90, 0, 9800.00, 'superphone', 2024.789, 'base')
+
+
+@pytest.fixture
 def lawn_grass():
-    return Lawn_grass('мятлик', 'мягкая газонная трава', 4000.0, 50, 'England', '2а дня на прорастание', 'зеленый изумруд')
+    return LawnGrass('мятлик', 'мягкая газонная трава', 4000.0, 50, 'England', '2а дня на прорастание', 'зеленый '
+                                                                                                        'изумруд')
+
 
 # Фикстуры
 phones = [
@@ -65,6 +74,7 @@ tv = [{'name': '55" QLED 4K', 'description': 'Фоновая подсветка'
 phones_list = ('Samsung Galaxy C23 Ultra, 180000.0 руб. Остаток: 5 шт.; Iphone 15, 210000.0 руб. Остаток: 8 шт.; '
                'Xiaomi Redmi Note 11, 31000.0 руб. Остаток: 14 шт.')
 tv_list = '55" QLED 4K, 123000.0 руб. Остаток: 7 шт.'
+products = []
 
 
 def test_init_product(product):
@@ -85,12 +95,12 @@ def test_init_category(category):
     assert category.unique_products_count == 1 or 3
 
 
-def test_add_product_to_category(category, product):
+def test_add_product_to_category(category, product, smartphone2):
     """Тест проверяет добавление экземпляра класса товара в атрибут списка product класса Category"""
     if category.add_product(product):
         assert category.products == [product]
-
-
+    with pytest.raises(ValueError):
+        category.add_product(smartphone2)
 
 
 def test_get_products(category):
@@ -118,7 +128,6 @@ def test_price(product, price):
     assert product.price == 180000.0
 
 
-
 def test_str_category(category):
     """Тест проверяет правильность печати магического метода __str__, объектов класса Category"""
     assert print(category) == print('Смартфоны, количество продуктов: 1 шт.')
@@ -129,13 +138,23 @@ def test_len_category(category):
     assert len(category) == 1
 
 
+def test_products_av_price(category, smartphone):
+    """Тест проверяет правильное получение значения средней суммы всех добавленных продуктов и возникновение
+    исключений при получении значения суммы"""
+    with pytest.raises(ZeroDivisionError):
+        len(category.products) / 0
+    category.add_product(smartphone)
+    assert category.products_av_price == 10000.9
+
+
 def test_str_product(product):
     """Тест проверяет правильность печати магического метода __str__, объектов класса Product"""
     assert print(product) == print('Samsung Galaxy C23 Ultra, 180000.0 руб. Остаток: 5 шт.')
 
 
 def test_add_product(product, product_2):
-    """Тест проверяет правильность сложения магического метода __add__, только объектов экземпляра класса Product и его наследников"""
+    """Тест проверяет правильность сложения магического метода __add__, только объектов экземпляра класса Product и
+    его наследников"""
     assert product + product_2 == 2580000.0
     with pytest.raises(TypeError):
         product + 10
@@ -147,7 +166,7 @@ def test_smartphone_init(smartphone):
     assert smartphone.description == 'отличный телефон'
     assert smartphone.price == 10000.90
     assert smartphone.quantity_in_stock == 10
-    assert smartphone.perfomance == 9800.00
+    assert smartphone.performance == 9800.00
     assert smartphone.model == 'superphone'
     assert smartphone.memory == 2024.789
     assert smartphone.color == 'base'

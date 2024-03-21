@@ -1,8 +1,8 @@
-from src.any_product import Any_product
+from src.any_product import AnyProduct
 from src.mixin import MixinCreateObject
 
 
-class Product(MixinCreateObject, Any_product):
+class Product(MixinCreateObject, AnyProduct):
     """Класс содержит название, описание, цену и количество товара, в наличии"""
     name: str
     description: str
@@ -51,7 +51,7 @@ class Product(MixinCreateObject, Any_product):
             print('Введена некорректная цена!')
             new_price = self._price
         elif new_price < self._price:
-            user_input == str(input('Если вы хотите поменять цену введите: "y", иначе "n"')).lower()
+            user_input = str(input('Если вы хотите поменять цену введите: "y", иначе "n"')).lower()
             if user_input == 'y':
                 self._price = new_price
             elif user_input == 'n':
