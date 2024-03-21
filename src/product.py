@@ -51,7 +51,7 @@ class Product(MixinCreateObject, AnyProduct):
             print('Введена некорректная цена!')
             new_price = self._price
         elif new_price < self._price:
-            user_input == str(input('Если вы хотите поменять цену введите: "y", иначе "n"')).lower()
+            user_input = str(input('Если вы хотите поменять цену введите: "y", иначе "n"')).lower()
             if user_input == 'y':
                 self._price = new_price
             elif user_input == 'n':
