@@ -18,8 +18,8 @@ def main_foo(paste_class):
 
 # проверка получения объектов классов и работа с ними(раскомментируйте печать нужного метода)
 
-#obj1 = main_foo(Category)
-#obj2 = main_foo(Product)
+obj1 = main_foo(Category)
+obj2 = main_foo(Product)
 products = get_product()
 # print(obj1.get_products())
 # print(obj2.new_objects(products).name)
@@ -41,10 +41,14 @@ class New:
     """Новый класс для проверки функций, уже существующих классов"""
     pass
 
-#obj4 = New()
+class PassClass(Product):
+    pass
+
+obj6 = PassClass(None, None, None, None)
+obj4 = New()
 #obj2_2 = main_foo(Product)
 obj3 = Smartphone('телефон', 'отличный телефон', 10000.90, 10, 9800.00, 'superphone', 2024.789, 'base')
-obj5 = LawnGrass('мятлик', 'мягкая газонная трава', 4000.0, 50, 'England', '2а дня на прорастание', 'зеленый изумруд')
+obj5 = LawnGrass('мятлик', 'мягкая газонная трава', 4000.0, 0, 'England', '2а дня на прорастание', 'зеленый изумруд')
 #print(obj3)
 #print(obj5.made_in)
 #print(obj2 + obj3)
@@ -53,4 +57,7 @@ obj5 = LawnGrass('мятлик', 'мягкая газонная трава', 400
 #obj1.add_product(obj2)
 #print(len(obj1.products))
 
-
+#obj1.add_product(obj5)
+#obj1.add_product(obj2)
+#print(obj1.products)
+#print(obj1.products_av_price)
