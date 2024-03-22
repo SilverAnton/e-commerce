@@ -56,7 +56,7 @@ class Category:
         for product in self.products:
             prices.append(product.price)
         try:
-            return sum(prices) / len(self.__products)
+            return sum(prices) / len(self.products)
         except ZeroDivisionError as e:
             print(e)
             return 0
