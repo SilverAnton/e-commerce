@@ -52,13 +52,11 @@ class Category:
     @property
     def products_av_price(self):
         """Возвращает среднюю цену всех добавленных продуктов в виде float"""
-        prices = 0
+        prices = []
         for product in self.products:
-            prices += product.price
-        if len(self.products) == 0:
-            try:
-                return prices / len(self.products)
-            except ZeroDivisionError as e:
-                print(e)
-                return 0
-        return prices / len(self.products)
+            prices.append(product.price)
+        try:
+            return sum(prices) / len(self.__products)
+        except ZeroDivisionError as e:
+            print(e)
+            return 0
